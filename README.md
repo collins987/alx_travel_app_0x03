@@ -1,17 +1,9 @@
-# ALX Travel App 0x02 — Payment Integration with Chapa API
+# alx_travel_app_0x03
 
-## Overview
-This project integrates Chapa API into a Django booking system to handle secure payments.
-
-### Features
-- Initiate payment from booking
-- Redirect to Chapa checkout page
-- Verify payment status via API
-- Store payment records in the database
-- Update status to "Pending", "Completed", or "Failed"
+## Background Jobs with Celery & RabbitMQ
+This project uses Celery with RabbitMQ to handle background email notifications.
 
 ### Setup
-1. Install dependencies:
+1. Start RabbitMQ server
    ```bash
-   pip install requests python-dotenv
-# alx_travel_app_0x03
+   sudo service rabbitmq-server start

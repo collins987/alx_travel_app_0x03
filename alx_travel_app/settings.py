@@ -133,3 +133,21 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# alx_travel_app/settings.py
+
+# Celery settings
+CELERY_BROKER_URL = 'amqp://localhost'   # RabbitMQ broker
+CELERY_RESULT_BACKEND = 'django-db'      # store task results in DB
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+
+INSTALLED_APPS += [
+    'django_celery_results',
+]
+
+# Email backend (use console for testing or SMTP for real)
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+DEFAULT_FROM_EMAIL = "noreply@alxtravel.com"

@@ -9,6 +9,7 @@ from django.views import View
 from django.shortcuts import get_object_or_404
 from .models import Payment
 from django.conf import settings
+from .tasks import send_booking_confirmation_email
 
 CHAPA_SECRET_KEY = settings.CHAPA_SECRET_KEY
 CHAPA_BASE_URL = settings.CHAPA_BASE_URL
@@ -22,6 +23,11 @@ class ListingViewSet(viewsets.ModelViewSet):
 class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
+
+    def perform_create(self, serializer):
+        booking = serializer.save()
+        user_email = booking.user.email  # assuming Booking has FK to User
+        send_booking_confirmation_email.delay(user_email, booking.id)
 
 
 
