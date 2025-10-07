@@ -14,6 +14,7 @@ import environ
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from decouple import config
 
 load_dotenv()
 
@@ -25,11 +26,20 @@ environ.Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = env('SECRET_KEY')
-DEBUG = env('DEBUG')
+SECRET_KEY = config('SECRET_KEY', default='dev-secret-key')
+DEBUG = config('DEBUG', default=False, cast=bool)
+ALLOWED_HOSTS = ['my-app-name.onrender.com', 'localhost', '127.0.0.1']
 
-ALLOWED_HOSTS = []
+# Celery
+CELERY_BROKER_URL = config('CELERY_BROKER_URL', default='amqp://localhost')
+CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND', default='django-db')
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 
+# Email backend
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+DEFAULT_FROM_EMAIL = "noreply@alxtravel.com"
 
 # Application definition
 

@@ -24,10 +24,11 @@ schema_view = get_schema_view(
    openapi.Info(
       title="ALX Travel App API",
       default_version='v1',
-      description="API documentation for the ALX Travel App",
+      description="API documentation for the ALX Travel Application",
+      contact=openapi.Contact(email="support@alxtravel.com"),
    ),
    public=True,
-   permission_classes=(permissions.AllowAny,),
+   permission_classes=[permissions.AllowAny],
 )
 
 urlpatterns = [
